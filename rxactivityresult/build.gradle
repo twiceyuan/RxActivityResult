@@ -32,7 +32,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     provided "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
-    provided "io.reactivex.rxjava2:rxjava:$RXJAVA2_VERSION"
+    // provided "io.reactivex.rxjava2:rxjava:$RXJAVA2_VERSION"
+    provided "io.reactivex:rxjava:$RXJAVA_VERSION"
 }
 
 // build a jar with source files

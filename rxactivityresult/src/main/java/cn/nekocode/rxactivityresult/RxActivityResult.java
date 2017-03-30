@@ -27,10 +27,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
+import rx.Observable;
+import rx.functions.Func1;
+
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -86,15 +85,15 @@ public class RxActivityResult {
 
         final ResultHandleFragment fragment = _fragment;
         return fragment.getIsAttachedBehavior()
-                .filter(new Predicate<Boolean>() {
+                .filter(new Func1<Boolean, Boolean>() {
                     @Override
-                    public boolean test(@io.reactivex.annotations.NonNull Boolean isAttached) throws Exception {
+                    public Boolean call(Boolean isAttached) {
                         return isAttached;
                     }
                 })
-                .flatMap(new Function<Boolean, ObservableSource<ActivityResult>>() {
+                .flatMap(new Func1<Boolean, Observable<ActivityResult>>() {
                     @Override
-                    public ObservableSource<ActivityResult> apply(@io.reactivex.annotations.NonNull Boolean aBoolean) throws Exception {
+                    public Observable<ActivityResult> call(Boolean aBoolean) {
                         if (Build.VERSION.SDK_INT >= 16) {
                             fragment.startActivityForResult(intent, requestCode, options);
                         } else {
@@ -104,9 +103,9 @@ public class RxActivityResult {
                         return fragment.getResultPublisher();
                     }
                 })
-                .filter(new Predicate<ActivityResult>() {
+                .filter(new Func1<ActivityResult, Boolean>() {
                     @Override
-                    public boolean test(@io.reactivex.annotations.NonNull ActivityResult result) throws Exception {
+                    public Boolean call(ActivityResult result) {
                         return result.getRequestCode() == requestCode;
                     }
                 });

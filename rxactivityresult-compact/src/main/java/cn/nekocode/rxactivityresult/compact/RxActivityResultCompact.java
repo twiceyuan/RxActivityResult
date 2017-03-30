@@ -28,10 +28,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.nekocode.rxactivityresult.ActivityResult;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -84,22 +82,22 @@ public class RxActivityResultCompact {
 
         final ResultHandleV4Fragment fragment = _fragment;
         return fragment.getIsAttachedBehavior()
-                .filter(new Predicate<Boolean>() {
+                .filter(new Func1<Boolean, Boolean>() {
                     @Override
-                    public boolean test(@io.reactivex.annotations.NonNull Boolean isAttached) throws Exception {
+                    public Boolean call(Boolean isAttached) {
                         return isAttached;
                     }
                 })
-                .flatMap(new Function<Boolean, ObservableSource<ActivityResult>>() {
+                .flatMap(new Func1<Boolean, Observable<ActivityResult>>() {
                     @Override
-                    public ObservableSource<ActivityResult> apply(@io.reactivex.annotations.NonNull Boolean aBoolean) throws Exception {
+                    public Observable<ActivityResult> call(Boolean aBoolean) {
                         fragment.startActivityForResult(intent, requestCode, options);
                         return fragment.getResultPublisher();
                     }
                 })
-                .filter(new Predicate<ActivityResult>() {
+                .filter(new Func1<ActivityResult, Boolean>() {
                     @Override
-                    public boolean test(@io.reactivex.annotations.NonNull ActivityResult result) throws Exception {
+                    public Boolean call(ActivityResult result) {
                         return result.getRequestCode() == requestCode;
                     }
                 });

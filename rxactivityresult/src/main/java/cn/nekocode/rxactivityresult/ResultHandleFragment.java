@@ -24,16 +24,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
+import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
+
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
 public class ResultHandleFragment extends Fragment {
-    public final PublishSubject<ActivityResult> resultPublisher = PublishSubject.create();
-    public final BehaviorSubject<Boolean> isAttachedBehavior = BehaviorSubject.createDefault(false);
+    public final PublishSubject<ActivityResult> resultPublisher    = PublishSubject.create();
+    public final BehaviorSubject<Boolean>       isAttachedBehavior = BehaviorSubject.create(false);
 
     public ResultHandleFragment() {
 

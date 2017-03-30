@@ -24,15 +24,15 @@ import android.os.Build;
 import android.support.v4.app.Fragment;
 
 import cn.nekocode.rxactivityresult.ActivityResult;
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
+import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 public class ResultHandleV4Fragment extends Fragment {
-    public final PublishSubject<ActivityResult> resultPublisher = PublishSubject.create();
-    public final BehaviorSubject<Boolean> isAttachedBehavior = BehaviorSubject.createDefault(false);
+    public final PublishSubject<ActivityResult> resultPublisher    = PublishSubject.create();
+    public final BehaviorSubject<Boolean>       isAttachedBehavior = BehaviorSubject.create(false);
 
     public ResultHandleV4Fragment() {
 

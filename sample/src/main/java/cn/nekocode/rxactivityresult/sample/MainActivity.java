@@ -24,14 +24,14 @@ import android.widget.TextView;
 
 import cn.nekocode.rxactivityresult.ActivityResult;
 import cn.nekocode.rxactivityresult.compact.RxActivityResultCompact;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
+import rx.functions.Action1;
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 public class MainActivity extends AppCompatActivity {
-    private static int REQUEST_CODE = 101;
+
+    private static final int REQUEST_CODE = 101;
 
     private TextView textView;
 
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
         final Intent intent = new Intent(this, SubActivity.class);
 
         RxActivityResultCompact.startActivityForResult(this, intent, REQUEST_CODE)
-                .subscribe(new Consumer<ActivityResult>() {
+                .subscribe(new Action1<ActivityResult>() {
                     @Override
-                    public void accept(@NonNull ActivityResult result) throws Exception {
+                    public void call(ActivityResult result) {
                         if (result.isOk()) {
                             final String rlt = result.getData().getStringExtra(SubActivity.RLT_TEXT);
                             textView.setText(getString(R.string.result_text, rlt));
