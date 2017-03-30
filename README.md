@@ -5,6 +5,29 @@ This is a library that can help you to receive results from `startActivityForRes
 
 **Supports only RxJava 2 now.**
 
+## About This Fork(RxJava1 Version)
+
+**RxJava 1 version (not officially).**
+Source: https://github.com/twiceyuan/RxActivityResult/tree/rx1
+
+## Using with gradle
+- Add the JitPack repository to your `build.gradle` repositories:
+
+```gradle
+repositories {
+    // ...
+    maven { url "https://jitpack.io" }
+}
+```
+
+- Add the core dependency:
+
+```
+dependencies {
+    compile 'com.github.twiceyuan.rxactivityresult:rxactivityresult:1.1-rxjava1'
+}
+```
+
 ## Usage
 
 Example:
